@@ -1,0 +1,11 @@
+.profile__container {
+    display: flex;
+    justify-content: space-between;
+    padding:5px;
+    border-bottom: 1px solid rgb(95, 94, 94);
+}
+.profile__status{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

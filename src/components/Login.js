@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./Login.css";
 
@@ -7,6 +8,7 @@ const Login = () => {
   const InputEmail = useRef();
   const InputPassword = useRef();
   const InputConfirmPassword = useRef();
+  const navigate = useNavigate();
   const modeChangeHandler = () => {
     setLogin((prevState) => !prevState);
   };
@@ -46,6 +48,7 @@ const Login = () => {
               InputEmail.current.value =
               InputPassword.current.value =
                 "";
+            navigate("/profile");
           }
         } catch (error) {
           console.log(error.message);
@@ -72,6 +75,7 @@ const Login = () => {
         console.log(data);
         if (response.ok) {
           console.log("user login success fully");
+          navigate("/profile");
         }
       } catch (error) {
         console.log(error.message);

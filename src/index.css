@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.profile__status {
+  position: relative;
+}
+.details {
+  position: absolute;
+  right: 0;
+  top: 100px;
+}
