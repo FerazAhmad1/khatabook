@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     setToken(null);
   };
 
-  contextValue = {
+  const contextValue = {
     isLoggedIn: mode,
     token: token,
     login: loginHandler,

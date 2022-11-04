@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./Auth";
 
 import "./Login.css";
 
@@ -9,6 +10,7 @@ const Login = () => {
   const InputPassword = useRef();
   const InputConfirmPassword = useRef();
   const navigate = useNavigate();
+  const auth = useAuth();
   const modeChangeHandler = () => {
     setLogin((prevState) => !prevState);
   };
@@ -76,6 +78,7 @@ const Login = () => {
         if (response.ok) {
           console.log("user login success fully");
           navigate("/profile");
+          auth.login(data.idToken);
         }
       } catch (error) {
         console.log(error.message);
