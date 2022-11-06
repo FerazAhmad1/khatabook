@@ -17,8 +17,13 @@ export const AuthProvider = ({ children }) => {
     setToken(null);
   };
   useEffect(() => {
+    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
     if (localStorage.getItem("email")) {
-      setToken(localStorage.getItem("token"));
+      loginHandler(localStorage.getItem("token"));
+      console.log(
+        "yes i am useffect inside of authcontext",
+        localStorage.getItem("token")
+      );
     }
   }, []);
   const contextValue = {

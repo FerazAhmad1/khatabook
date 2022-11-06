@@ -90,6 +90,18 @@ const Login = () => {
     }
   };
 
+  useEffect(() => {
+    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+    if (localStorage.getItem("email")) {
+      auth.login(localStorage.getItem("token"));
+      console.log(
+        "yes i am useffect inside of authcontext",
+        localStorage.getItem("token")
+      );
+      navigate("/profile");
+    }
+  }, []);
+
   return (
     <div className="container">
       <div className="signup">
