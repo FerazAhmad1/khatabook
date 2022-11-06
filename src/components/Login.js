@@ -52,7 +52,7 @@ const Login = () => {
               InputPassword.current.value =
                 "";
 
-            navigate("/profile");
+            navigate("/Verifyemail");
           }
         } catch (error) {
           console.log(error.message);
@@ -79,7 +79,7 @@ const Login = () => {
         console.log(data);
         if (response.ok) {
           console.log("user login success fully");
-          navigate("/profile");
+          navigate("/verifyemail");
           localStorage.setItem("email", email);
           localStorage.setItem("token", data.idToken);
           auth.login(data.idToken);
@@ -98,7 +98,7 @@ const Login = () => {
         "yes i am useffect inside of authcontext",
         localStorage.getItem("token")
       );
-      navigate("/profile");
+      navigate("/verifyemail");
     }
   }, []);
 

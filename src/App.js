@@ -3,6 +3,7 @@ import "./App.css";
 import ContactDetails from "./components/ContactDetails";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
+import VerifyEmail from "./components/VerifyEmail";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path="/profile" element={<Profile />}>
         <Route path="details" element={<ContactDetails />} />
       </Route>
+      <Route path="/verifyemail" element={<VerifyEmail />} />
     </Routes>
   );
 }
