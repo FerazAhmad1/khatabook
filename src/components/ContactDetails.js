@@ -3,42 +3,30 @@ import "./ContactDetails.css";
 import { useAuth } from "./Auth";
 
 const ContactDetails = () => {
-  const [update, setUpdate] = useState(false);
   const nameInput = useRef();
   const photoInput = useRef();
   const auth = useAuth();
+  const token = auth.token;
 
-  useEffect(() => {
-    const token = auth.token;
-    console.log(token);
-    let response;
-    const updateProfile = async function () {
-      if (update) {
-        setUpdate(false);
-        response = await fetch(
-          `https://identitytoolkit.googleapis.com/v1/accounts:update?key=
-          AIzaSyDQCWs9SI07zAWukmPD860hEMGb4ks4E8o`,
-          {
-            method: "POST",
-            body: JSON.stringify({
-              idToken: token,
-              displayName: nameInput.current.value,
-              photoUrl: photoInput.current.value,
-              returnSecureToken: true,
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+  const clickHandler = async () => {
+    let response = await fetch(
+      `https://identitytoolkit.googleapis.com/v1/accounts:update?key=
+      AIzaSyDQCWs9SI07zAWukmPD860hEMGb4ks4E8o`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          idToken: token,
+          displayName: nameInput.current.value,
+          photoUrl: photoInput.current.value,
+          returnSecureToken: true,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-      console.log(response);
-    };
-    updateProfile();
-  }, [update]);
-
-  const clickHandler = () => {
-    setUpdate(true);
+    );
+    const data = await response.json();
+    console.log(data);
   };
   return (
     <div className="details">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import ReactDom from "react-dom";
 
@@ -16,7 +16,11 @@ export const AuthProvider = ({ children }) => {
   const logOutHandler = () => {
     setToken(null);
   };
-
+  useEffect(() => {
+    if (localStorage.getItem("email")) {
+      setToken(localStorage.getItem("token"));
+    }
+  }, []);
   const contextValue = {
     isLoggedIn: mode,
     token: token,

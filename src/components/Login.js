@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./Auth";
 
@@ -46,10 +46,12 @@ const Login = () => {
           );
           if (response.ok) {
             setLogin(true);
+
             InputConfirmPassword.current.value =
               InputEmail.current.value =
               InputPassword.current.value =
                 "";
+
             navigate("/profile");
           }
         } catch (error) {
@@ -78,6 +80,8 @@ const Login = () => {
         if (response.ok) {
           console.log("user login success fully");
           navigate("/profile");
+          localStorage.setItem("email", email);
+          localStorage.setItem("token", data.idToken);
           auth.login(data.idToken);
         }
       } catch (error) {
