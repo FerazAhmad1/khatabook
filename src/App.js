@@ -4,16 +4,20 @@ import ContactDetails from "./components/ContactDetails";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import VerifyEmail from "./components/VerifyEmail";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/profile" element={<Profile />}>
-        <Route path="details" element={<ContactDetails />} />
-      </Route>
-      <Route path="/verifyemail" element={<VerifyEmail />} />
-    </Routes>
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/profile" element={<Profile />}>
+          <Route path="details" element={<ContactDetails />} />
+        </Route>
+        <Route path="/verifyemail" element={<VerifyEmail />} />
+      </Routes>
+    </>
   );
 }
 
