@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Profile from "./components/Profile";
 import VerifyEmail from "./components/VerifyEmail";
 import Header from "./components/Header";
+import ForgotPassword from "./components/ForgotPassword";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/profile" element={<Profile />}>
           <Route path="details" element={<ContactDetails />} />
         </Route>
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/verifyemail" element={<VerifyEmail />} />
       </Routes>
     </>

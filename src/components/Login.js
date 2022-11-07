@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { useAuth } from "./Auth";
 
 import "./Login.css";
@@ -119,6 +119,7 @@ const Login = () => {
               {`${!login ? "SignUp" : "Login"}`}
             </button>
           }
+          <NavLink to="/forgotpassword">forgot password</NavLink>
         </div>
       </div>
       <div className="modechange">
