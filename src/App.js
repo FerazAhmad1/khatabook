@@ -6,17 +6,49 @@ import Profile from "./components/Profile";
 import VerifyEmail from "./components/VerifyEmail";
 import Header from "./components/Header";
 import ForgotPassword from "./components/ForgotPassword";
+import Form from "./components/Form";
+import RequireAuth from "./components/RequireAuth";
 
 function App() {
   return (
     <>
-      <Header />
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/profile" element={<Profile />}>
-          <Route path="details" element={<ContactDetails />} />
+        <Route
+          path="/profile"
+          element={
+            <>
+              <Header />
+              <Profile />
+            </>
+          }>
+          <Route
+            path="details"
+            element={
+              <>
+                <Header />
+                <ContactDetails />
+              </>
+            }
+          />
         </Route>
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route
+          path="/form"
+          element={
+            <RequireAuth>
+              <Form />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/forgotpassword"
+          element={
+            <>
+              <Header />
+              <ForgotPassword />
+            </>
+          }
+        />
         <Route path="/verifyemail" element={<VerifyEmail />} />
       </Routes>
     </>

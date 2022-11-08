@@ -109,10 +109,23 @@ const Login = () => {
           <h1>Signup</h1>
         </div>
         <div className="signup__inputs">
-          <input placeholder="Email" ref={InputEmail} type="text" />
-          <input placeholder="Password" ref={InputPassword} />
+          <input
+            className="signup__inputs__email"
+            placeholder="Email"
+            ref={InputEmail}
+            type="text"
+          />
+          <input
+            className="signup__inputs__password"
+            placeholder="Password"
+            ref={InputPassword}
+          />
           {!login && (
-            <input placeholder="Confirm Password" ref={InputConfirmPassword} />
+            <input
+              className="signup__inputs__confirmpassword"
+              placeholder="Confirm Password"
+              ref={InputConfirmPassword}
+            />
           )}
           {
             <button onClick={authHandler} className="signup__btn">

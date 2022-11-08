@@ -28,7 +28,7 @@
    
   
 }
-.signup__inputs input,button {
+.signup__inputs__email, .signup__inputs__password,.signup__inputs__confirmpassword {
     padding: 10px;
     margin-bottom: 10px;
 }

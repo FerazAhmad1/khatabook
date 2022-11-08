@@ -1,0 +1,41 @@
+.formlist__container {
+   display: flex;
+   padding: 10px 50px;
+   margin: 5% 20% 0 20%;
+   justify-content: space-between;
+   align-items: center;
+   text-align: center;
+   border-radius: 15px;
+   background-color: rgb(108, 180, 243);
+}
+.formlist__moneyinput,.formlist__descriptioninput, .formlist__expenseitem{
+    color: white;
+    padding: 5px;
+}
+.formlist__edit {
+    background-color: blue;
+    padding: 10px;
+    width: 100px;
+    color: white;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    border: 1px solid blue;
+    text-align: center;
+    align-items: center;
+}
+.formlist__delete {
+    background-color:black;
+    padding: 10px;
+    width: 100px;
+    color: white;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    border: 1px solid black;
+    text-align: center;
+    align-items: center;
+}
+.formlist__date {
+    color: red;
+}

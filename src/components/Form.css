@@ -1,0 +1,47 @@
+
+
+.expense__form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    
+}
+.expense__form__input{
+    height: 25px;
+    width: 200px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+}
+.expense__form__button{
+    height: 30px;
+    width: 200px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+}
+.expense__form__dropdown{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 200px;
+    height: 30px;
+}
+.expense__form__dropdown__element {
+
+    display: none;
+    
+}
+ .expense__form__dropdown:hover  .expense__form__dropdown__element{
+    
+        display: block;
+    
+} 
