@@ -26,7 +26,7 @@ const VerifyEmail = () => {
       console.log(data, token);
       console.log(response);
       if (response.ok) {
-        navigate("/profile");
+        navigate("/form");
       } else {
         throw data.error;
       }
