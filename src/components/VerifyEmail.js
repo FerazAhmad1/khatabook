@@ -1,11 +1,13 @@
 import React from "react";
-import { json, useNavigate } from "react-router-dom";
-import { useAuth } from "./Auth";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { loginMethod } from "../features/authSlice";
 
 const VerifyEmail = () => {
-  const auth = useAuth();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const token = auth.token;
+  const token = useSelector((state) => state.auth.token);
+  const state = useSelector((state) => state.auth);
 
   const verifyEmailHandler = async () => {
     try {
@@ -23,16 +25,17 @@ const VerifyEmail = () => {
         }
       );
       const data = await response.json();
-      console.log(data, token);
-      console.log(response);
+
       if (response.ok) {
+        dispatch(loginMethod(localStorage.getItem("token")));
+        console.log("yes", state);
         navigate("/form");
       } else {
         throw data.error;
       }
     } catch (error) {
       if (error.message === "INVALID_ID_TOKEN") {
-        auth.login(null);
+        dispatch(loginMethod(null));
         localStorage.clear();
         alert("login again");
         navigate("/");

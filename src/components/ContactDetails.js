@@ -1,14 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
+import { useSelector } from "react-redux";
 import "./ContactDetails.css";
-import { useAuth } from "./Auth";
-
 const ContactDetails = () => {
   const [update, setUpdate] = useState(true);
   const nameInput = useRef();
   const photoInput = useRef();
-  const auth = useAuth();
-  const token = auth.token;
-
+  const token = useSelector((state) => state.auth.token);
   const clickHandler = async (event) => {
     event.preventDefault();
     if (update && nameInput.current.value && photoInput.current.value) {
@@ -46,7 +43,6 @@ const ContactDetails = () => {
         }
       );
       const data = await response.json();
-      console.log(data);
       nameInput.current.value = data.users[0].displayName;
       photoInput.current.value = data.users[0].photoUrl;
     }

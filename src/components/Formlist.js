@@ -1,18 +1,6 @@
 import React from "react";
 import "./Formlist.css";
 import axios from "axios";
-import { db } from "../../src/firebase-confiq";
-import {
-  doc,
-  updateDoc,
-  deleteDoc,
-  getFirestore,
-  collection,
-  query,
-  where,
-  getDocs,
-  addDoc,
-} from "firebase/firestore";
 
 const Formlist = ({
   money,
@@ -24,26 +12,8 @@ const Formlist = ({
   onClick,
   setState,
 }) => {
-  console.log(money, item);
-  console.log({ id });
-  const userCollectionRef = collection(db, "users");
   const editHandler = async (id) => {
-    {
-      // const data = await getDocs(userCollectionRef);
-      // const fetchedData = data.docs.map((doc) => ({
-      //   ...doc.data(),
-      //   id: doc.id,
-      // }));
-      // console.log(fetchedData);
-      // console.log(id);
-    }
-
     onClick(id);
-    // const userDoc = doc(db, "users", id);
-    // await deleteDoc(userDoc);
-    // const userDoc = doc(db, "users", id);
-    // const newFields = {};
-    // await updateDoc(userDoc, newFields);
   };
 
   const deleteHandler = async (id) => {
@@ -71,7 +41,6 @@ const Formlist = ({
         <button
           className="formlist__edit"
           onClick={(event) => {
-            console.log(id);
             editHandler(id);
           }}>
           Edit

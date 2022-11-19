@@ -1,16 +1,20 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
-import { useAuth } from "./Auth";
+import { loginMethod, emailSetupMethod } from "../features/authSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 import "./Login.css";
 
 const Login = () => {
   const [login, setLogin] = useState(false);
+  const dispatch = useDispatch();
+  const isLoggedin = useSelector((state) => state.auth.isLoggedin);
+  const state = useSelector((state) => state.auth);
   const InputEmail = useRef();
   const InputPassword = useRef();
   const InputConfirmPassword = useRef();
   const navigate = useNavigate();
-  const auth = useAuth();
+
   const modeChangeHandler = () => {
     setLogin((prevState) => !prevState);
   };
@@ -76,13 +80,15 @@ const Login = () => {
         );
 
         const data = await response.json();
-        console.log(data);
+
         if (response.ok) {
-          console.log("user login success fully");
           navigate("/verifyemail");
           localStorage.setItem("email", email);
           localStorage.setItem("token", data.idToken);
-          auth.login(data.idToken);
+          dispatch(loginMethod(data.idToken));
+          console.log(email);
+          console.log(state);
+          dispatch(emailSetupMethod(email));
         }
       } catch (error) {
         console.log(error.message);
@@ -91,13 +97,9 @@ const Login = () => {
   };
 
   useEffect(() => {
-    console.log("yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
     if (localStorage.getItem("email")) {
-      auth.login(localStorage.getItem("token"));
-      console.log(
-        "yes i am useffect inside of authcontext",
-        localStorage.getItem("token")
-      );
+      dispatch(loginMethod(localStorage.getItem("token")));
+
       navigate("/verifyemail");
     }
   }, []);

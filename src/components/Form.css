@@ -24,6 +24,15 @@
     text-align: center;
     
 }
+.form__premiumButton{
+    height: 30px;
+    width: 200px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: blue;
+    background-color: red;
+}
 .expense__form__dropdown{
     display: flex;
     flex-direction: column;

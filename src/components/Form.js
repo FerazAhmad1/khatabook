@@ -2,32 +2,19 @@ import React, { useEffect, useState } from "react";
 import "./Form.css";
 import Formlist from "./Formlist";
 import { useRef } from "react";
-import { db } from "../../src/firebase-confiq";
 import axios from "axios";
-
-import {
-  getFirestore,
-  collection,
-  updateDoc,
-  query,
-  where,
-  getDocs,
-  doc,
-  addDoc,
-} from "firebase/firestore";
-import { json } from "react-router-dom";
-
-const listData = [];
+import { useSelector, useDispatch } from "react-redux";
+import { current, fetchExpenses, allexpense } from "../features/ExpensesSlice";
 const Form = () => {
-  const [users, setUser] = useState([]);
-  const [added, setAdded] = useState("");
-  console.log(users);
   const [editId, setEditId] = useState(null);
+  const dispatch = useDispatch();
   const moneyInputRef = useRef();
   const descriptionInputRef = useRef();
   const selectedInputRef = useRef();
   const [update, setUpdate] = useState(false);
-  const userCollectionRef = collection(db, "users");
+  const users = useSelector((state) => state.expense.expenses);
+  const totalAmount = users.reduce((acc, expense) => acc + expense.money, 0);
+  console.log(totalAmount, "totalAmount");
 
   useEffect(() => {
     const getUser = async () => {
@@ -37,22 +24,19 @@ const Form = () => {
       const data = await respo.data;
       if (data) {
         var ob = Object.keys(data);
+        console.log("i am if data");
       } else {
         ob = null;
-        setUser([]);
+        console.log("inside else");
+        dispatch(allexpense([]));
       }
-
-      console.log("Useeefecet");
-
       if (ob) {
         const keyarr = Object.keys(data);
-        setUser(keyarr.map((key) => ({ ...data[key], id: key })));
-        console.log("i am after setuser");
+        dispatch(allexpense(keyarr.map((key) => ({ ...data[key], id: key }))));
       }
     };
-
     getUser();
-  }, [added, update]);
+  }, [update]);
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -67,7 +51,7 @@ const Form = () => {
           date: new Date().toLocaleString().split(" ")[0],
         }
       );
-      setAdded(null);
+
       setUpdate((prevState) => !prevState);
     } else {
       try {
@@ -81,8 +65,8 @@ const Form = () => {
           }
         );
         const data = await respo.data;
-        console.log(data);
-        setAdded(data);
+        dispatch(current(data));
+
         setUpdate((prevState) => !prevState);
       } catch (error) {
         console.log(error);
@@ -91,7 +75,6 @@ const Form = () => {
   };
 
   const listClickHandler = (id) => {
-    console.log(users, id);
     const filterdData = users.filter((item) => item.id === id);
 
     moneyInputRef.current.value = filterdData[0].money;
@@ -99,6 +82,7 @@ const Form = () => {
     selectedInputRef.current.value = filterdData[0].item;
     setEditId(id);
   };
+
   return (
     <>
       <form className="expense__form" onSubmit={submitHandler}>
@@ -136,6 +120,10 @@ const Form = () => {
       {/* {listData.map((list) => (
         <Formlist {...list} key={"b" + count} />
       ))} */}
+
+      {totalAmount >= 10000 && (
+        <button className="form__premiumButton">Premium</button>
+      )}
       {users.map((user) => (
         <Formlist {...user} onClick={listClickHandler} setState={setUpdate} />
       ))}

@@ -1,13 +1,13 @@
 import React from "react";
-import { useAuth } from "./Auth";
 import { Navigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const RequireAuth = ({ children }) => {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedin);
+  console.log(isLoggedIn);
   const location = useLocation();
-  const auth = useAuth();
-  console.log(location);
 
-  if (!auth.isLoggedIn) {
+  if (!isLoggedIn) {
     return <Navigate to="/" />;
   }
   return children;

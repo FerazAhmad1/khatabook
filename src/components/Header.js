@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./Auth";
+import { useSelector, useDispatch } from "react-redux";
+import { loginMethod } from "../features/authSlice";
+
 const Header = () => {
   const navigate = useNavigate();
-  const auth = useAuth();
-  const logoutbutton = () => {
-    auth.login(null);
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.auth);
+  console.log(state);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedin);
+  console.log(isLoggedIn, "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+  useEffect(() => {
+    console.log(state);
+  }, []);
+  const logoutbutton = (e) => {
+    e.preventDefault();
+    dispatch(loginMethod(null));
     localStorage.clear();
     navigate("/");
   };
-  if (!auth.isLoggedIn) return;
-  return <button onClick={logoutbutton}>LogOut</button>;
+  if (!isLoggedIn) return;
+  return (
+    <div>
+      {console.log(state)}
+      <button onClick={logoutbutton}>LogOut</button>
+    </div>
+  );
 };
 
 export default Header;
