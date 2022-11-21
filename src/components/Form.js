@@ -5,8 +5,10 @@ import { useRef } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { current, fetchExpenses, allexpense } from "../features/ExpensesSlice";
+import { CSVLink, CSVDownload } from "react-csv";
 const Form = () => {
   const [editId, setEditId] = useState(null);
+  const [activePremium, setActivePremium] = useState(false);
   const dispatch = useDispatch();
   const moneyInputRef = useRef();
   const descriptionInputRef = useRef();
@@ -83,6 +85,12 @@ const Form = () => {
     setEditId(id);
   };
 
+  const activePremiumHandler = () => {
+    setActivePremium((prevState) => !prevState);
+  };
+
+  const toggleThemeHandler = () => {};
+
   return (
     <>
       <form className="expense__form" onSubmit={submitHandler}>
@@ -122,8 +130,17 @@ const Form = () => {
       ))} */}
 
       {totalAmount >= 10000 && (
-        <button className="form__premiumButton">Premium</button>
+        <button onClick={activePremiumHandler} className="form__premiumButton">
+          {!activePremium ? "Activate Premium" : "Activated"}
+        </button>
       )}
+      {activePremium && <button onClick={toggleThemeHandler}>Toggle</button>}
+      {activePremium && (
+        <button>
+          <CSVLink data={users}>Download</CSVLink>
+        </button>
+      )}
+
       {users.map((user) => (
         <Formlist {...user} onClick={listClickHandler} setState={setUpdate} />
       ))}

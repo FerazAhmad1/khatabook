@@ -19,3 +19,11 @@ code {
   right: 0;
   top: 100px;
 }
+
+.dark {
+  background-color: #333;
+
+}
+.light {
+  background-color: white;
+}
