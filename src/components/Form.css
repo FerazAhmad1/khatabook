@@ -55,3 +55,10 @@
         display: block;
     
 } 
+
+.activatePremium__togglebutton{
+    background-color: blue;
+    border:none;
+    outline: none;
+    margin-left:20%
+}

@@ -4,12 +4,14 @@ import Formlist from "./Formlist";
 import { useRef } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
+import { themeHandler } from "../features/ThemeSlice";
 import { current, fetchExpenses, allexpense } from "../features/ExpensesSlice";
 import { CSVLink, CSVDownload } from "react-csv";
 const Form = () => {
   const [editId, setEditId] = useState(null);
   const [activePremium, setActivePremium] = useState(false);
   const dispatch = useDispatch();
+  const theme = useSelector((state) => state.theme.themeType);
   const moneyInputRef = useRef();
   const descriptionInputRef = useRef();
   const selectedInputRef = useRef();
@@ -17,7 +19,7 @@ const Form = () => {
   const users = useSelector((state) => state.expense.expenses);
   const totalAmount = users.reduce((acc, expense) => acc + expense.money, 0);
   console.log(totalAmount, "totalAmount");
-
+  const body = document.querySelector(".body");
   useEffect(() => {
     const getUser = async () => {
       const respo = await axios.get(
@@ -89,7 +91,18 @@ const Form = () => {
     setActivePremium((prevState) => !prevState);
   };
 
-  const toggleThemeHandler = () => {};
+  useEffect(() => {
+    if (!activePremium) {
+      body.style.backgroundColor = "";
+    } else {
+      body.style.backgroundColor = theme ? "black" : "";
+    }
+  }, [activePremium, theme]);
+
+  const toggleThemeHandler = () => {
+    console.log("yes");
+    dispatch(themeHandler());
+  };
 
   return (
     <>
@@ -134,7 +147,13 @@ const Form = () => {
           {!activePremium ? "Activate Premium" : "Activated"}
         </button>
       )}
-      {activePremium && <button onClick={toggleThemeHandler}>Toggle</button>}
+      {activePremium && (
+        <button
+          className="activatePremium__togglebutton"
+          onClick={toggleThemeHandler}>
+          Toggle
+        </button>
+      )}
       {activePremium && (
         <button>
           <CSVLink data={users}>Download</CSVLink>
